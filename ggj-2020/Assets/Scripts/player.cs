@@ -12,6 +12,8 @@ public class player : MonoBehaviour
 
 
 
+  public Animator animator;
+
   void Awake()
   {
 
@@ -36,6 +38,9 @@ public class player : MonoBehaviour
   void Update()
   {
     horizontalMovement = Input.GetAxis("Horizontal") * speed;
+    animator.SetFloat("speed", Mathf.Abs(horizontalMovement));
+
+
     _rigidbody2D.velocity = new Vector2(horizontalMovement, _rigidbody2D.velocity.y);
 
     if (Input.GetKeyDown(KeyCode.A))

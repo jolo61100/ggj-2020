@@ -17,8 +17,7 @@ public class collectible : MonoBehaviour
   private bool isPickUp;
 
   //public GameObject itemPickUp;
-  //public SpriteRenderer makeInvis;
-
+  public SpriteRenderer makeInvis;
 
   // Start is called before the first frame update
   private void Start()
@@ -31,6 +30,7 @@ public class collectible : MonoBehaviour
   {
     if (isPickUp && Input.GetKeyDown(KeyCode.E))
     {
+      pickingUp.gameObject.SetActive(false);
       getObject();
       pickedUp = true;
       DestroyObject();
@@ -40,11 +40,13 @@ public class collectible : MonoBehaviour
     if (pickedUp)
     {
       timeLeft -= Time.deltaTime;
+      pickingUp.gameObject.SetActive(false);
 
       if (timeLeft <= 0)
       {
         TextBubble.gameObject.SetActive(false);
         timeLeft = 0;
+        //pickingUp.gameObject.SetActive(true);
 
       }
     }
@@ -55,7 +57,6 @@ public class collectible : MonoBehaviour
   {
     pickingUp.gameObject.SetActive(false);
     TextBubble.gameObject.SetActive(false);
-    // itemPickUp.SetActive(false);
     pickedUp = false;
   }
   private void OnTriggerEnter2D(Collider2D collision)
@@ -82,14 +83,11 @@ public class collectible : MonoBehaviour
   }
   void getObject()
   {
-
     TextBubble.gameObject.SetActive(true);
-
-    //  itemPickUp.SetActive(true);
   }
 
   void DestroyObject()
   {
-    Destroy(this);
+    makeInvis.enabled = false;
   }
 }
